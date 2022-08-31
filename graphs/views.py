@@ -17,7 +17,7 @@ def index(request):
     return HttpResponse("Hello World")
 
 @csrf_exempt
-def data_reception(request:HttpRequest):
+def data_reception(request: HttpRequest):
     postData = json.loads(request.body)
     run: Game = Game()
     version_info: version.Version = version.parse(postData["version"])
@@ -34,7 +34,7 @@ def data_reception(request:HttpRequest):
     run.pokemon2 = postData["pokemon2"]
     run.save()
     for cardInfo in postData["cardDetails"]:
-        card = Card()
+        card: Card = Card()
         card.game = run
         if len(cardInfo["name"].split(":")) > 1:
             card.name = cardInfo["name"].split(":")[1]
@@ -43,7 +43,7 @@ def data_reception(request:HttpRequest):
         card.upgrade = cardInfo["upgrade"]
         card.save()
     for cardInfo in postData["chosenCards"]:
-        card = CardChoice()
+        card: CardChoice = CardChoice()
         card.game = run
         if len(cardInfo["name"].split(":")) > 1:
             card.name = cardInfo["name"].split(":")[1]
@@ -53,7 +53,7 @@ def data_reception(request:HttpRequest):
         card.chosen = True
         card.save()
     for cardInfo in postData["notChosenCards"]:
-        card = CardChoice()
+        card: CardChoice = CardChoice()
         card.game = run
         if len(cardInfo["name"].split(":")) > 1:
             card.name = cardInfo["name"].split(":")[1]
@@ -66,7 +66,7 @@ def data_reception(request:HttpRequest):
 
 def card_overview(request):
     data = {}
-
+    data.cards = list(CardChoice.objects.order_by("name").values_list("name").distinct())
     return render(request, "graphs/card-overview.html", context=data)
 
 def cards(request, cardName):

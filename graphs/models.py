@@ -32,6 +32,6 @@ class Relic(models.Model):
 
 class CardChoice(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     upgrade = models.IntegerField(default=0)
     chosen = models.BooleanField(default=False)

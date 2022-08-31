@@ -1,6 +1,6 @@
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
 from packaging import version
@@ -36,7 +36,7 @@ def data_reception(request:HttpRequest):
     for cardInfo in postData["cardDetails"]:
         card = Card()
         card.game = run
-        card.name = cardInfo["name"]
+        card.name = cardInfo["name"].split(":")[1]
         card.upgrade = cardInfo["upgrade"]
         card.save()
     for cardInfo in postData["chosenCards"]:
@@ -54,6 +54,11 @@ def data_reception(request:HttpRequest):
         card.chosen = False
         card.save()
     return render(request, "graphs/data-reception.html", context={})
+
+def card_overview(request):
+    data = {}
+
+    return render(request, "graphs/card-overview.html", context=data)
 
 def cards(request, cardName):
     filters = request.GET

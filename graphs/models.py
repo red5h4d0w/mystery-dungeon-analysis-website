@@ -1,6 +1,8 @@
 from django.db import models
 from packaging import version
 
+import re
+
 # Create your models here.
 
 class Game(models.Model):
@@ -16,8 +18,13 @@ class Game(models.Model):
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=40)
     upgrade = models.IntegerField(default=0)
+
+    @property
+    def card_name(self):
+        name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
+        return " ".join(name_list[1:]) + f" ({name_list[0]})"
 
 class Relic(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

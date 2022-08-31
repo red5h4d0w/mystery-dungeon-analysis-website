@@ -3,11 +3,14 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
+from packaging import version
+
 import json
 from graphs.forms import FiltersForm
 
 from graphs.models import Card, CardChoice, Game
 
+from packaging import version
 # Create your views here.
 
 def index(request):
@@ -16,8 +19,9 @@ def index(request):
 @csrf_exempt
 def data_reception(request:HttpRequest):
     postData = json.loads(request.body)
-    run:Game = Game()
-    run.version = postData["version"]
+    run: Game = Game()
+    version_info: version.Version = version.parse(postData["version"])
+    run.version = 100**2*version_info.major + 100*version_info.minor + version_info.micro
     run.ascension_level = postData["ascensionLevel"]
     run.max_floor = postData["maxFloor"]
     run.win = postData["win"]
@@ -71,6 +75,10 @@ def cards(request, cardName):
             value = True if value=="on" else False
             corresponding_cards = corresponding_cards.filter(game__win__exact=value)
             corresponding_card_choices = corresponding_card_choices.filter(game__win__exact=value)
+        elif filter == "minimum_version":
+            value = version.parse(value)
+            corresponding_cards = corresponding_cards.filter(game__version__gte=value)
+            corresponding_card_choices = corresponding_card_choices.filter(game__version__gte=value)
     filters_form = FiltersForm()
     filters_form.initial = filters.dict()
     data = {

@@ -18,7 +18,12 @@ class FiltersForm(forms.Form):
         required=False
     )
     minimum_version = forms.ChoiceField(
-        label="first_version", 
-        choices=Game.objects.values_list("version"), 
+        label="minimum version:", 
+        choices=Game.objects.values_list("version").distinct(), 
+        required=False
+    )
+    max_version = forms.ChoiceField(
+        label="maximum version", 
+        choices=Game.objects.values_list("version").distinct(), 
         required=False
     )

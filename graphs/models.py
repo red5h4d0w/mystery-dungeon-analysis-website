@@ -1,4 +1,5 @@
 from django.db import models
+from packaging import version
 
 # Create your models here.
 
@@ -11,7 +12,7 @@ class Game(models.Model):
     seed = models.CharField(max_length=20)
     pokemon1 = models.CharField(max_length=20)
     pokemon2 = models.CharField(max_length=20)
-    version = models.CharField(max_length=20)
+    version = models.IntegerField()
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

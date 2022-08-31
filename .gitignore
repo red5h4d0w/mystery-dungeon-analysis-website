@@ -3,3 +3,5 @@
 .mypy_cache
 .vscode
 db.sqlite3
+graphs/__pycache/
+__pycache/

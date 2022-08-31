@@ -1,0 +1,175 @@
+<head>
+<style>
+.graph-zone {
+    display: flex;
+    flex-direction: column;
+}
+.graph-row {
+    display: flex;
+}
+</style>
+</head>
+<h1>Filters:</h1>
+<form method="GET">
+    {% csrf_token %}
+    {% for filter in filters%}
+    <div class="fieldWrapper">
+        {{ filter.label }}
+        {{ filter }}
+        {% if filter == filters.max_asc %}
+        <output>{{ filter.value }}</output>
+        {% elif filter == filters.min_asc %}
+        <output>{{ filter.value }}</output>
+        {% endif %}
+    </div>
+    {% endfor %}
+</form>
+<h1>Stats for cards containing {{ cardName }}</h1>
+<div class="graph-zone">
+    <div class="graph-row">
+        <div id="container" style="width: 50%;">
+            <canvas id="upgrade-pie-chart"></canvas>
+        </div>
+        <div id="container" style="width: 50%;">
+            <canvas id="quantity-per-game-pie-chart"></canvas>
+        </div>
+    </div>
+    <div class="graph-row">
+        <div id="container" style="width: 50%;">
+            <canvas id="loss-win-games-pie-chart"></canvas>
+        </div>
+        <div id="container" style="width: 50%;">
+            <canvas id="chosen-pie-chart"></canvas>
+        </div>
+    </div>
+    <div class="graph-row">
+        <div id="container" style="width: 50%;">
+            <canvas id="characters-pie-chart"></canvas>
+        </div>
+        <div id="container" style="width: 50%;">
+            <canvas id="mmmh-pie-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Graph of number of upgrades
+    var config = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: {{ upgrades.data|safe }},
+                backgroundColor: [
+                    'lightblue', 'green', 'red', 'purple', '#D3D3D3'
+                ],
+            }],
+            labels: {{ upgrades.labels|safe }}
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: top,
+                },
+                title: {
+                    display: true,
+                    text: "Number of upgrades"
+                }
+            }
+        }
+    };
+
+    var config2 = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: {{ quantityPerGame.data|safe }},
+                backgroundColor: [
+                    'lightblue', 'green', 'red', 'purple', '#D3D3D3'
+                ],
+            }],
+            labels: {{ quantityPerGame.labels|safe }}
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: top,
+                },
+                title: {
+                    display: true,
+                    text: "Quantity per game"
+                }
+            }
+        }
+    };
+
+    
+
+    var config3 = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: {{ win.data|safe }},
+                backgroundColor: [
+                    'lightblue', 'green', 'red', 'purple', '#D3D3D3'
+                ],
+            }],
+            labels: {{ win.labels|safe }}
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: top,
+                },
+                title: {
+                    display: true,
+                    text: "Games won/lost with card"
+                }
+            }
+        }
+    };
+
+    var config4 = {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: {{ chosen.data|safe }},
+                backgroundColor: [
+                    'lightblue', 'green', 'red', 'purple', '#D3D3D3'
+                ],
+            }],
+            labels: {{ chosen.labels|safe }}
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: top,
+                },
+                title: {
+                    display: true,
+                    text: "Chosen"
+                }
+            }
+        }
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById('upgrade-pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+        var ctx = document.getElementById('quantity-per-game-pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config2);
+        var ctx = document.getElementById('loss-win-games-pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config3);
+        var ctx = document.getElementById('chosen-pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config4);
+        
+    };
+
+  </script>

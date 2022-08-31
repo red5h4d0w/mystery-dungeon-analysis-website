@@ -36,7 +36,10 @@ def data_reception(request:HttpRequest):
     for cardInfo in postData["cardDetails"]:
         card = Card()
         card.game = run
-        card.name = cardInfo["name"].split(":")[1]
+        if len(cardInfo["name"].split(":")) > 2:
+            card.name = cardInfo["name"].split(":")[1]
+        else:
+            card.name = cardInfo["name"]
         card.upgrade = cardInfo["upgrade"]
         card.save()
     for cardInfo in postData["chosenCards"]:

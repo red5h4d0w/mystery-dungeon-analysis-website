@@ -36,7 +36,7 @@ def data_reception(request:HttpRequest):
     for cardInfo in postData["cardDetails"]:
         card = Card()
         card.game = run
-        if len(cardInfo["name"].split(":")) > 2:
+        if len(cardInfo["name"].split(":")) > 1:
             card.name = cardInfo["name"].split(":")[1]
         else:
             card.name = cardInfo["name"]

@@ -90,9 +90,11 @@ def cards(request, cardName):
             corresponding_cards = corresponding_cards.filter(game__win__exact=value)
             corresponding_card_choices = corresponding_card_choices.filter(game__win__exact=value)
         elif filter == "minimum_version":
-            value = version.parse(value)
             corresponding_cards = corresponding_cards.filter(game__version__gte=value)
             corresponding_card_choices = corresponding_card_choices.filter(game__version__gte=value)
+        elif filter == "minimum_version":
+            corresponding_cards = corresponding_cards.filter(game__version__lte=value)
+            corresponding_card_choices = corresponding_card_choices.filter(game__version__lte=value)
     filters_form = FiltersForm()
     filters_form.initial = filters.dict()
     data = {

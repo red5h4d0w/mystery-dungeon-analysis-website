@@ -3,6 +3,8 @@ from packaging import version
 
 import re
 
+pokémon_names = ["Bulbasaur", "Charmander", "Squirtle", "Pikachu", "Meowth", "Chikorita", "Cyndaquil", "Totodile"]
+
 # Create your models here.
 
 class Game(models.Model):
@@ -38,5 +40,8 @@ class CardChoice(models.Model):
 
     @property
     def card_name(self):
-        name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
-        return " ".join(name_list[1:]) + f" ({name_list[0]})"
+        for pokémon_name in pokémon_names:
+            if pokémon_name in self.name:
+                name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
+                return " ".join(name_list[1:]) + f" ({name_list[0]})"
+        return self.name

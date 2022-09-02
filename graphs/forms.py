@@ -20,14 +20,14 @@ class FiltersForm(forms.Form):
     minimum_version = forms.ChoiceField(
         label="minimum version:", 
         choices=map(lambda v: (v,f"v{v//100**2}.{v//100%100}.{v%100}"),
-            map(lambda v: v[0].version, list(Game.objects.distinct("version")))
+            map(lambda v: v.version, list(Game.objects.distinct("version")))
         ), 
         required=False
     )
     max_version = forms.ChoiceField(
         label="maximum version", 
         choices=map(lambda v: (v,f"v{v//100**2}.{v//100%100}.{v%100}"),
-            map(lambda v: v[0].version, list(Game.objects.distinct("version")))
+            map(lambda v: v.version, list(Game.objects.distinct("version")))
         ), 
         required=False
     )

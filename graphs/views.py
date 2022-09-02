@@ -66,7 +66,7 @@ def data_reception(request: HttpRequest):
 
 def card_overview(request):
     data = {}
-    data.cards = list(CardChoice.objects.order_by("name").values_list("name").distinct())
+    data["cards"] = list(CardChoice.objects.order_by("name").values_list("name").distinct())
     return render(request, "graphs/card-overview.html", context=data)
 
 def cards(request, cardName):

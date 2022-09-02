@@ -4,3 +4,12 @@
 <h1>
     Cards
 </h1>
+<ul>
+    {% for card in cards %}
+        <li>
+            <a href="graphs/cards/{{ card.card_name }}">
+                {{ card.card_name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

@@ -35,3 +35,8 @@ class CardChoice(models.Model):
     name = models.CharField(max_length=40)
     upgrade = models.IntegerField(default=0)
     chosen = models.BooleanField(default=False)
+
+    @property
+    def card_name(self):
+        name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
+        return " ".join(name_list[1:]) + f" ({name_list[0]})"

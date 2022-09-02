@@ -49,5 +49,5 @@ class CardChoice(models.Model):
     @property
     def not_actual_card(self):
         if self.name in ["Singing Bowl", "SKIP"]:
-            return true
+            return True
         return False

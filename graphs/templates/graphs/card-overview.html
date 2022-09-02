@@ -7,9 +7,12 @@
 <ul>
     {% for card in cards %}
         <li>
+            {% if card.not_actual_card %}
+            {% else %}
             <a href="./{{ card.name }}">
                 {{ card.card_name }}
             </a>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

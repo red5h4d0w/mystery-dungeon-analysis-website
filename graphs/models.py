@@ -45,3 +45,9 @@ class CardChoice(models.Model):
                 name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
                 return " ".join(name_list[1:]) + f" ({name_list[0]})"
         return self.name
+
+    @property
+    def not_actual_card(self):
+        if self.name in ["Singing Bowl", "SKIP"]:
+            return true
+        return false

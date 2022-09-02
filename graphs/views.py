@@ -1,16 +1,18 @@
+from discord_webhook import DiscordEmbed, DiscordWebhook
+
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
-from packaging import version
-
 import json
-from graphs.forms import FiltersForm
-
-from graphs.models import Card, CardChoice, Game
 
 from packaging import version
+
+from graphs.forms import FiltersForm
+from graphs.models import Card, CardChoice, Game
+from stsmysterydungeonwebsite.settings import DISCORD_WEBHOOK_URL
+
 # Create your views here.
 
 def index(request):
@@ -62,6 +64,9 @@ def data_reception(request: HttpRequest):
         card.upgrade = cardInfo["upgrade"]
         card.chosen = False
         card.save()
+    webhook = DiscordWebhook(url=DISCORD_WEBHOOK_URL)
+    embed = DiscordEmbed(title="Nouvelle run reçue", description=f"Ascension: {run.ascension_level}\nPokémons: {run.pokemon1} et {run.pokemon2}\n{'Victoire!' if run.win else 'Défaite...'}")
+    webhook.execute()
     return render(request, "graphs/data-reception.html", context={})
 
 def card_overview(request):

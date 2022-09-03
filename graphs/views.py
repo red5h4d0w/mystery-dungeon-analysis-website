@@ -176,8 +176,8 @@ def game_overview(request) -> HttpResponse:
 
 def game_details(request, pk):
     data = {}
-    data["game"] = list(Game.objects.filter(id__equals=pk))
-    data["cards"] = list(Card.objects.filter(game__id__equals=pk))
-    data["cardChoices"] = list(CardChoice.objects.filter(game__id__equals=pk))
-    data["relics"] = list(Relic.objects.filter(game__id__equals=pk))
+    data["game"] = list(Game.objects.filter(id=pk))
+    data["cards"] = list(Card.objects.filter(game__id=pk))
+    data["cardChoices"] = list(CardChoice.objects.filter(game__id=pk))
+    data["relics"] = list(Relic.objects.filter(game__id=pk))
     return render(request, "graphs/game-details.html", context=data)

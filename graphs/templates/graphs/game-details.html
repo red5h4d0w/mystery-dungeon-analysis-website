@@ -1,0 +1,37 @@
+<h1>Game Info</h1>
+Version: {{ game.version_as_string}}<br>
+Ascension: {{ game.ascension_level }}<br>
+Starter: {{ game.pokemon1 }}<br>
+Partner: {{ game.pokemon2 }}<br>
+Win: {% if game.win %}win!{% else %}lost...{% endif %}<br>
+{% if not game.win %}
+    Max floor: {{ game.max_floor }}<br>
+{% endif %}
+Score: {{ game.score }}<br>
+Seed: <i> {{ game.seed }}</i><br>
+Game Duration: {{ game.elapsed_tim }}<br>
+
+<h1>Relics:</h1>
+<ul>
+    {% for relic in relics %}
+        <li>
+            relic.name
+        </li>
+    {% endfor %}
+</ul>
+
+<h1>Cards:</h1>
+<ul>
+    {% for card in cards %}
+        <li>card.name</li> 
+    {% endfor %}
+</ul>
+
+{% for card in cardChoices %}
+    {% if card.chosen %}
+        <div style="color:green;">card.name</div>
+    {% else %}
+        <div style="color:red;">card.name</div>
+    {% endif %}
+
+{% endfor %}

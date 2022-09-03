@@ -1,0 +1,15 @@
+<head>
+
+</head>
+<h1>
+    Cards
+</h1>
+<ul>
+    {% for game in games %}
+        <li>
+            <a href="./game/{{ game.id }}">
+                Game no. {{ game.id }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

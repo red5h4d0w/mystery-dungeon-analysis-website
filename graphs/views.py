@@ -10,7 +10,7 @@ import json
 from packaging import version
 
 from graphs.forms import FiltersForm
-from graphs.models import Card, CardChoice, Game
+from graphs.models import Card, CardChoice, Game, Relic
 from stsmysterydungeonwebsite.settings import DISCORD_WEBHOOK_URL
 
 # Create your views here.
@@ -168,3 +168,16 @@ def cards(request, cardName):
     data["chosen"]["data"] = chosen_data
     
     return render(request, "graphs/cards.html", context=data)
+
+def game_overview(request) -> HttpResponse:
+    data = {}
+    data["games"] = list(Game.objects.order_by("id").all())
+    return render(request, "graphs/game-overview.html", context=data)
+
+def game_details(request, pk):
+    data = {}
+    data["game"] = list(Game.objects.filter(id__equals=pk))
+    data["cards"] = list(Card.objects.filter(game__id__equals=pk))
+    data["cardChoices"] = list(CardChoice.objects.filter(game__id__equals=pk))
+    data["relics"] = list(Relic.objects.filter(game__id__equals=pk))
+    return render(request, "graphs/game-details.html", context=data)

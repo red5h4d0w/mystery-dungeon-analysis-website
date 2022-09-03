@@ -26,7 +26,7 @@ class Game(models.Model):
     @property
     def time_as_datetime(self):
         elapsed_time = int(self.elapsed_time)
-        return f"v{elapsed_time//600**2}:{elapsed_time//60%60}:{elapsed_time%60}"
+        return f"{elapsed_time//600**2}:{elapsed_time//60%60}:{elapsed_time%60}"
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

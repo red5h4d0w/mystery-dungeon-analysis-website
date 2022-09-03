@@ -23,16 +23,16 @@ Game Duration: {{ game.elapsed_time }}<br>
 <h1>Cards:</h1>
 <ul>
     {% for card in cards %}
-        <li>{{ card.name }}</li> 
+        <li>{{ card.card_name }}</li> 
     {% endfor %}
 </ul>
 <ul>
     {% for card in cardChoices %}
         <li>
             {% if card.chosen %}
-                <div style="color:green;">{{ card.name }}</div>
+                <div style="color:green;">{{ card.card_name }}</div>
             {% else %}
-                <div style="color:red;">{{ card.name }}</div>
+                <div style="color:red;">{{ card.card_name }}</div>
             {% endif %}
         </li>
     {% endfor %}

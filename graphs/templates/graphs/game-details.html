@@ -15,7 +15,7 @@ Game Duration: {{ game.elapsed_time }}<br>
 <ul>
     {% for relic in relics %}
         <li>
-            relic.name
+            {{ relic.name }}
         </li>
     {% endfor %}
 </ul>
@@ -23,16 +23,16 @@ Game Duration: {{ game.elapsed_time }}<br>
 <h1>Cards:</h1>
 <ul>
     {% for card in cards %}
-        <li>card.name</li> 
+        <li>{{ card.name }}</li> 
     {% endfor %}
 </ul>
 <ul>
     {% for card in cardChoices %}
         <li>
             {% if card.chosen %}
-                <div style="color:green;">card.name</div>
+                <div style="color:green;">{{ card.name }}</div>
             {% else %}
-                <div style="color:red;">card.name</div>
+                <div style="color:red;">{{ card.name }}</div>
             {% endif %}
         </li>
     {% endfor %}

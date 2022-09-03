@@ -65,7 +65,7 @@ def data_reception(request: HttpRequest):
         card.chosen = False
         card.save()
     webhook = DiscordWebhook(url=DISCORD_WEBHOOK_URL)
-    embed = DiscordEmbed(title="Nouvelle run reçue", description=f"Ascension: {run.ascension_level}\nPokémons: {run.pokemon1} et {run.pokemon2}\n{'Victoire!' if run.win else 'Défaite...'}")
+    embed = DiscordEmbed(title="Nouvelle run reçue", description=f"Ascension: {run.ascension_level}\nPokémons: {run.pokemon1} et {run.pokemon2}\n{'Victoire!' if run.win else 'Défaite...'}\n[Voir la run](http://scarlet-tales-studio.com/graphs/game/{Game.objects.count()})")
     webhook.add_embed(embed)
     webhook.execute()
     return render(request, "graphs/data-reception.html", context={})

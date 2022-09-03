@@ -25,7 +25,7 @@ class Game(models.Model):
 
     @property
     def time_as_datetime(self):
-        return datetime.from_timestamp(elapsed_time)
+        return datetime.fromtimestamp(self.elapsed_time)
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

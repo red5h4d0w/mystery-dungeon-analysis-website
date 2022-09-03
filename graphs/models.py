@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import timedelta
 from django.db import models
 from packaging import version
 
@@ -25,7 +25,7 @@ class Game(models.Model):
 
     @property
     def time_as_datetime(self):
-        return datetime.fromtimestamp(self.elapsed_time)
+        return timedelta(seconds=self.elapsed_time)
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

@@ -7,5 +7,5 @@ urlpatterns = [
     path("card/<str:cardName>", views.cards, name="card-info"),
     path("data-reception", views.data_reception, name="data-reception"),
     path("game/", views.game_overview, name="game-overview"),
-    path("game/<int:pk>", views.game, name="game-details")
+    path("game/<int:pk>", views.game_details, name="game-details")
 ]

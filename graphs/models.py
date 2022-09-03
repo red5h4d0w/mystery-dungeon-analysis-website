@@ -18,6 +18,10 @@ class Game(models.Model):
     pokemon2 = models.CharField(max_length=20)
     version = models.IntegerField()
 
+    @property
+    def version_as_string(self):
+        return f"v{self.version//100**2}.{self.version//100%100}.{self.version%100}"
+
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)

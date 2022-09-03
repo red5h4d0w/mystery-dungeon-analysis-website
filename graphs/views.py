@@ -16,7 +16,7 @@ from stsmysterydungeonwebsite.settings import DISCORD_WEBHOOK_URL
 # Create your views here.
 
 def index(request):
-    return HttpResponse("Hello World")
+    return render(request, "graphs/index.html", context={})
 
 @csrf_exempt
 def data_reception(request: HttpRequest):

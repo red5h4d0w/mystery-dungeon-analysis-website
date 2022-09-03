@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from packaging import version
 
@@ -21,6 +22,10 @@ class Game(models.Model):
     @property
     def version_as_string(self):
         return f"v{self.version//100**2}.{self.version//100%100}.{self.version%100}"
+
+    @property
+    def time_as_datetime(self):
+        return datetime.from_timestamp(elapsed_time)
 
 class Card(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

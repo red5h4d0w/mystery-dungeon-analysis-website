@@ -9,7 +9,7 @@ Win: {% if game.win %}win!{% else %}lost...{% endif %}<br>
 {% endif %}
 Score: {{ game.score }}<br>
 Seed: <i> {{ game.seed }}</i><br>
-Game Duration: {{ game.time_as_datetime | time:"H:i:s" }}<br>
+Game Duration: {{ game.time_as_datetime }}<br>
 
 <h1>Relics:</h1>
 <ul>

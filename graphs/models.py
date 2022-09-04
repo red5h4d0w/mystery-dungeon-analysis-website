@@ -69,3 +69,8 @@ class CardChoice(models.Model):
         if self.name in ["Singing Bowl", "SKIP"]:
             return True
         return False
+
+    @property
+    def card_name_with_upgrade(self):
+        upgrade_suffix = f" +{str(self.upgrade) if self.upgrade > 1 else ''}" if self.upgrade >= 1 else ""
+        return self.card_name + upgrade_suffix

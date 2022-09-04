@@ -23,7 +23,7 @@ Game Duration: {{ game.time_as_datetime }}<br>
 <h1>Cards:</h1>
 <ul>
     {% for card in cards %}
-        <li>{{ card.card_name }}</li> 
+        <li>{{ card.card_name_with_upgrade }}</li> 
     {% endfor %}
 </ul>
 <h1>Card Choices</h1>

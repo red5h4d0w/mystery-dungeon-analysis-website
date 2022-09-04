@@ -41,6 +41,15 @@ class Card(models.Model):
                 return " ".join(name_list[1:]) + f" ({name_list[0]})"
         return self.name
 
+    @property
+    def card_name_with_upgrade(self):
+        upgrade_suffix = f" +{str(self.upgrade) if self.upgrade > 1 else ''}" if self.upgrade >= 1 else ""
+        for pokémon_name in pokémon_names:
+            if pokémon_name in self.name:
+                name_list = re.findall('[a-zA-Z][^A-Z]*', self.name)
+                return " ".join(name_list[1:]) + f" ({name_list[0]})"
+        return self.name
+
 class Relic(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
